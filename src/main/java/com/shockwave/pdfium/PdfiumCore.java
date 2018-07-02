@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import com.getkeepsafe.relinker.ReLinker;
 
 public class PdfiumCore {
     private static final String TAG = PdfiumCore.class.getName();
@@ -120,6 +121,71 @@ public class PdfiumCore {
     public PdfiumCore(Context ctx) {
         mCurrentDpi = ctx.getResources().getDisplayMetrics().densityDpi;
         Log.d(TAG, "Starting PdfiumAndroid " + BuildConfig.VERSION_NAME);
+
+         try {
+            ReLinker.loadLibrary(ctx, "c++_shared", new ReLinker.LoadListener() {
+                @Override
+                public void success() {
+                    Log.d("samos", "loaded");
+                }
+
+                @Override
+                public void failure(Throwable t) {
+                    Throwable tt = t;
+                    Log.d("samos", "error " + t.getLocalizedMessage());
+                }
+            });
+            ReLinker.loadLibrary(ctx, "modpng", new ReLinker.LoadListener() {
+                @Override
+                public void success() {
+                    Log.d("samos", "loaded");
+                }
+
+                @Override
+                public void failure(Throwable t) {
+                    Throwable tt = t;
+                    Log.d("samos", "error " + t.getLocalizedMessage());
+                }
+            });
+            ReLinker.loadLibrary(ctx, "modft2", new ReLinker.LoadListener() {
+                @Override
+                public void success() {
+                    Log.d("samos", "loaded");
+                }
+
+                @Override
+                public void failure(Throwable t) {
+                    Throwable tt = t;
+                    Log.d("samos", "error " + t.getLocalizedMessage());
+                }
+            });
+            ReLinker.loadLibrary(ctx, "modpdfium", new ReLinker.LoadListener() {
+                @Override
+                public void success() {
+                    Log.d("samos", "loaded");
+                }
+
+                @Override
+                public void failure(Throwable t) {
+                    Throwable tt = t;
+                    Log.d("samos", "error " + t.getLocalizedMessage());
+                }
+            });
+            ReLinker.loadLibrary(ctx, "jniPdfium", new ReLinker.LoadListener() {
+                @Override
+                public void success() {
+                    Log.d("samos", "loaded");
+                }
+
+                @Override
+                public void failure(Throwable t) {
+                    Throwable tt = t;
+                    Log.d("samos", "error " + t.getLocalizedMessage());
+                }
+            });
+        } catch (UnsatisfiedLinkError e) {
+            Log.e(TAG, "Native libraries failed to load - " + e);
+        }
     }
 
     /** Create new document from file */
